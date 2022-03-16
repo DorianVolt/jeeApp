@@ -1,0 +1,37 @@
+/*C12*/SET SCHEMA PUBLIC
+drop table if exists tgroup CASCADE 
+drop table if exists tperson CASCADE 
+drop sequence hibernate_sequence if exists
+create sequence hibernate_sequence start with 1 increment by 1
+create table tgroup (id bigint not null, name varchar(255), version bigint not null, primary key (id))
+create table tperson (id bigint not null, birth_day date, email_address varchar(200) not null, first_name varchar(200) not null, last_name varchar(200) not null, password varchar(200) not null, version bigint not null, web_site varchar(200), primary key (id))
+alter table tgroup add constraint UK40rwrom0f53v90mm3jwx3f64d unique (id, name)
+alter table tperson add constraint UKrhms38uojwmx440megxunfjbb unique (id, first_name, last_name, email_address, web_site, birth_day, password)
+alter table tperson add constraint UK_efnq6un967l5fme0hmtsuj9f5 unique (email_address)
+alter table tperson add constraint UK_1j22hg40hruk24jp3dv4uij2h unique (web_site)
+INSERT INTO TPERSON VALUES(1,NULL,'oolest@fire.com','Joe','Cool','number1',0,'CoolWebSite')
+ALTER SEQUENCE PUBLIC.HIBERNATE_SEQUENCE RESTART WITH 2
+COMMIT
+ALTER SEQUENCE PUBLIC.HIBERNATE_SEQUENCE RESTART WITH 3
+drop table if exists tgroup CASCADE 
+drop table if exists tperson CASCADE 
+drop sequence hibernate_sequence if exists
+DISCONNECT
+/*C13*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C14*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C15*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C16*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C17*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C18*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C19*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C20*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C21*/SET SCHEMA PUBLIC
+DISCONNECT

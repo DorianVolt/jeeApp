@@ -1,7 +1,7 @@
-package jpa.dao;
+package myapp.jpa.dao;
 
-import jpa.model.Group;
-import jpa.model.Person;
+import myapp.jpa.model.Group;
+import myapp.jpa.model.Person;
 
 import java.util.Collection;
 
@@ -22,5 +22,14 @@ public interface IDirectoryDao {
 
     // modification ou ajout d'une nouvelle personne
     void saveGroup(Group g);
+
+    Person addPerson(Person p);
+
+    Group addGroup(Group g);
+
+    void updatePerson(Person p);
+
+    void updateGroup(Group g);
+
 
 }
