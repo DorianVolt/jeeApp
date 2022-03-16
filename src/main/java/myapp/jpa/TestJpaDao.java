@@ -15,6 +15,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 public class TestJpaDao {
 
+    //TODO : Pb with person tests, maybe bc 2 =/= tables, maybe use joinTable ?
+
     @Autowired
     JpaDao dao;
 
@@ -91,7 +93,7 @@ public class TestJpaDao {
         var maya = new Person("Maya","Cool","iceIceBaby@hotmail.fr",null,null,":)4141");
 
 
-        assertThrows(RollbackException.class,()->{
+        assertThrows(DataIntegrityViolationException.class,()->{
             dao.addPerson(joe);
             dao.addPerson(maya);
         });
