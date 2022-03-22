@@ -15,25 +15,33 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 public class TestJpaDao {
 
-    //TODO : Pb with person tests, maybe bc 2 =/= tables, maybe use joinTable ?
-
     @Autowired
     JpaDao dao;
 
     @Test
-    public void addPerson(){
-        var person = new Person("Alice","Dupon","alice@mail.fr",null,null,"1234");
+    public void addPerson() {
+        var person = new Person("Dorian","Dupon","dorian@mail.fr",null,null,"1234");
         person = dao.addPerson(person);
-        assertTrue(person.getId() > 0);
+        assertTrue(person.getId() > 1);
+    }
+
+    @Test
+    public void addPersonToGroup(){
+        var person = new Person("Charlene","Dupon","charlene@mail.fr",null,null,"1234");
+        var group = new Group("FSI");
+        group.addStudent(person);
+        dao.addGroup(group);
+
+        assertEquals(1, group.getStudents().size());
     }
 
 
     @Test
     public void findPerson(){
-        var person = new Person("Alice","Dupon","alice@mail.fr",null,null,"1234");
+        var person = new Person("Eric","Dupon","eric@mail.fr",null,null,"1234");
         dao.addPerson(person);
 
-        assertEquals("Alice",dao.findPerson(person.getId()).getFirstName());
+        assertEquals("Eric",dao.findPerson(person.getId()).getFirstName());
     }
 
     @Test
@@ -49,7 +57,7 @@ public class TestJpaDao {
         group = dao.addGroup(group);
 
         group = dao.findGroup(group.getId());
-        assertEquals("IDL",group.getName());
+        assertEquals("IDL",group.getGroupName());
     }
 
     @Test
@@ -69,27 +77,27 @@ public class TestJpaDao {
         var group = new Group("FSI");
         group = dao.addGroup(group);
 
-        group.setName("GIG");
+        group.setGroupName("GIG");
         dao.updateGroup(group);
 
         group = dao.findGroup(group.getId());
-        assertEquals("GIG",group.getName());
+        assertEquals("GIG",group.getGroupName());
     }
 
     @Test
     public void testSameLastName(){
-        var joe = new Person("Joe","Cool","coolest@fire.com",null,null,"number1");
-        var maya = new Person("Maya","Cool","iceIceBaby@hotmail.fr",null,null,":)4141");
+        var eclair = new Person("Eclair","TarteAuCitron","hotdog@live.com",null,null,"number1");
+        var sable = new Person("Sable","TarteAuCitron","spaghetti@live.fr",null,null,":)4141");
 
         assertDoesNotThrow(()->{
-            dao.addPerson(maya);
-            dao.addPerson(joe);
+            dao.addPerson(sable);
+            dao.addPerson(eclair);
         });
     }
 
     @Test
     public void testSameEmailAddress(){
-        var joe = new Person("Joe","Cool","iceIceBaby@hotmail.fr",null,null,"number1");
+        var joe = new Person("Joe","Warm","iceIceBaby@hotmail.fr",null,null,"number1");
         var maya = new Person("Maya","Cool","iceIceBaby@hotmail.fr",null,null,":)4141");
 
 

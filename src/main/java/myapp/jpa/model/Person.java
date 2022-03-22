@@ -2,6 +2,7 @@ package myapp.jpa.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 
 import javax.persistence.*;
@@ -13,12 +14,14 @@ import java.util.Date;
 @NoArgsConstructor
 
 
-@Table(name = "TPerson",
+@Table(name = "TPerson")/*,
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = {
                         "id","first_name","last_name","email_address","web_site","birth_day","password"
                 })
-        })
+        })*/
+
+
 
 public class Person implements Serializable {
 
@@ -27,10 +30,14 @@ public class Person implements Serializable {
     @Version()
     private long version = 0;
 
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "TGroup")
+    @ToString.Exclude
+    private Group schoolGroup;
+
     @Id()
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
 
     @Basic(optional = false)
     @Column(name = "first_name", length = 200, nullable = false, unique = false)
