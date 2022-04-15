@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.Collection;
 
@@ -18,16 +19,16 @@ public class JpaDao implements IDirectoryDao{
 
     @Override
     public Collection<Group> findAllGroups() {
-        /*String query = "SELECT g FROM Group g";
+        String query = "SELECT g FROM Group g";
         TypedQuery<Group> q = em.createQuery(query, Group.class);
-        return q.getResultList();*/
-        return null;
+        return q.getResultList();
     }
 
     @Override
     public Person findPerson(long id) {
         return em.find(Person.class,id);
     }
+
 
     @Override
     public Group findGroup(long id) {
@@ -58,6 +59,12 @@ public class JpaDao implements IDirectoryDao{
     }
 
     @Override
+    public void removePerson(long id) {
+        Person p = em.find(Person.class,id);
+        em.remove(p);
+    }
+
+    @Override
     public void savePerson(Person p) {
         if (findPerson(p.getId()) != null){
             addPerson(p);
@@ -65,7 +72,6 @@ public class JpaDao implements IDirectoryDao{
             updatePerson(p);
         }
     }
-
 
     @Override
     public void saveGroup(Group g) {

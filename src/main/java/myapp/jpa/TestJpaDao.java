@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 
-import javax.persistence.RollbackException;
+
+
+import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -42,6 +44,12 @@ public class TestJpaDao {
         dao.addPerson(person);
 
         assertEquals("Eric",dao.findPerson(person.getId()).getFirstName());
+    }
+
+    @Test
+    public void findPersonWithPassword(){
+        var person = new Person("Lucas","SansTabouret","lucas@mail.fr",null,null,"1235");
+        dao.addPerson(person);
     }
 
     @Test
@@ -109,7 +117,7 @@ public class TestJpaDao {
 
     @Test
     public void testSameWebsite(){
-        var joe = new Person("Joe","Cool","oolest@fire.com","CoolWebSite",null,"number1");
+        var joe = new Person("Joe","Cool","coolest@fire.com","CoolWebSite",null,"number1");
         var maya = new Person("Maya","Cool","iceIceBaby@hotmail.fr","CoolWebSite",null,":)4141");
 
 
@@ -117,6 +125,13 @@ public class TestJpaDao {
             dao.addPerson(joe);
             dao.addPerson(maya);
         });
+    }
+
+    @Test
+    public void testFindAllGroup() {
+        dao.addGroup(new Group("ISD"));
+        Collection<Group> groups = dao.findAllGroups();
+        assertEquals(1,groups.size());
     }
 
 }

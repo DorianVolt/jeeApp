@@ -26,5 +26,7 @@ public interface IDirectoryDao {
 
     void updateGroup(Group g);
 
+    void removePerson(long id);
+
 
 }
