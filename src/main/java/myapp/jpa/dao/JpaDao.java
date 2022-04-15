@@ -83,4 +83,9 @@ public class JpaDao implements IDirectoryDao{
     }
 
 
+    public int countPerson() {
+        String query =  "SELECT count (id) FROM Person";
+        TypedQuery<Long> q = em.createQuery(query, Long.class);
+        return Math.toIntExact(q.getSingleResult());
+    }
 }

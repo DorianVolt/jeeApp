@@ -28,5 +28,7 @@ public interface IDirectoryDao {
 
     void removePerson(long id);
 
+    int countPerson();
+
 
 }

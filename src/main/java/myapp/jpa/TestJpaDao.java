@@ -1,6 +1,7 @@
 package myapp.jpa;
 
 import myapp.jpa.dao.JpaDao;
+import myapp.jpa.model.Generator;
 import myapp.jpa.model.Group;
 import myapp.jpa.model.Person;
 import org.junit.jupiter.api.Test;
@@ -134,4 +135,11 @@ public class TestJpaDao {
         assertEquals(1,groups.size());
     }
 
+   @Test
+    public void testGenerate() {
+        Generator generator = new Generator();
+        int nbPersonnes = 100;
+        generator.generatePerson(nbPersonnes,dao);
+        assertEquals(nbPersonnes,dao.countPerson());
+    }
 }

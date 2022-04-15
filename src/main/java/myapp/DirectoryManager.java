@@ -91,4 +91,5 @@ public class DirectoryManager implements IDirectoryManager{
     public Collection<Group> findAllGroups() {
         return dao.findAllGroups();
     }
+
 }
