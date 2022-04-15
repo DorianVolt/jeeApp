@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.Collection;
 
@@ -46,6 +47,11 @@ public class DirectoryManager implements IDirectoryManager{
     }
 
     @Override
+    public Person findPerson(String email) {
+       return dao.findPerson(email);
+    }
+
+    @Override
     public Group findGroup(User user, long groupId) {
         if (user.isLoggedIn){
             return dao.findGroup(groupId);
@@ -60,7 +66,7 @@ public class DirectoryManager implements IDirectoryManager{
     public boolean login(User user, long personId, String password) {
         var person = dao.findPerson(personId);
         if (person.getPassword().equals(password)){
-            user.person = person;
+            user.setPerson(person);
             user.isLoggedIn = true;
             return true;
         }
@@ -73,12 +79,12 @@ public class DirectoryManager implements IDirectoryManager{
     @Override
     public void logout(User user) {
         user.isLoggedIn = false;
-        user.person = null;
+        user.setPerson(null);
     }
 
     @Override
     public void savePerson(User user, Person p) {
-        user.person = p;
+        user.setPerson(p);
         dao.addPerson(p);
     }
 

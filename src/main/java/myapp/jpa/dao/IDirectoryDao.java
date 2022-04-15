@@ -12,6 +12,8 @@ public interface IDirectoryDao {
 
     Person findPerson(long id);
 
+    Person findPerson(String email);
+
     Group findGroup(long id);
 
     void savePerson(Person p);

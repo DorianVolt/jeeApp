@@ -13,6 +13,8 @@ public interface IDirectoryManager {
 
     Person findPerson(User user, long personId);
 
+    Person findPerson(String email);
+
     Group findGroup(User user, long groupId);
 
     boolean login(User user, long personId, String password);

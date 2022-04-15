@@ -13,13 +13,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 
-
-@Table(name = "TPerson")/*,
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = {
-                        "id","first_name","last_name","email_address","web_site","birth_day","password"
-                })
-        })*/
+@Table(name = "TPerson")
 
 
 
@@ -63,6 +57,7 @@ public class Person implements Serializable {
     @Basic(optional = false)
     @Column(name = "password", length = 200, nullable = false, unique = false)
     private String password;
+
 
     public Person(String firstName, String lastName, String emailAddress, String webSite, Date birthDay, String password) {
         super();

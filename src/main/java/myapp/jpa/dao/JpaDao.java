@@ -29,6 +29,14 @@ public class JpaDao implements IDirectoryDao{
         return em.find(Person.class,id);
     }
 
+    @Override
+    public Person findPerson(String email) {
+        String query = "SELECT p.id FROM Person p WHERE p.emailAddress = :email";
+        TypedQuery<Person> q = em.createQuery(query, Person.class);
+        q.setParameter("email",email);
+        return q.getSingleResult();
+    }
+
 
     @Override
     public Group findGroup(long id) {

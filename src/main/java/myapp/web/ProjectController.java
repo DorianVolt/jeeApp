@@ -5,6 +5,7 @@ import javax.annotation.PostConstruct;
 import myapp.DirectoryManager;
 import myapp.IDirectoryManager;
 import myapp.jpa.model.Group;
+import myapp.jpa.model.Person;
 import myapp.jpa.model.User;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -12,10 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Random;
+
 @Controller
-@RequestMapping("/group")
+@RequestMapping("/web")
 public class ProjectController {
 
 	@Autowired
@@ -62,17 +66,22 @@ public class ProjectController {
 	}
 
 	@RequestMapping(value = "/login")
-	public String login() {
+	public String login(@RequestParam("email_address") String email, @RequestParam("password") String password){
 		logger.info("login user " + user);
-		user.isLoggedIn = true;
+		Person person = manager.findPerson(email);
+		if (person.getPassword().equals(password)) {
+			manager.login(user, person.getId(), password);
+			user.setUsername(user.getPerson().getFirstName());
+		}
 		return "user";
 	}
 
 	@RequestMapping(value = "/logout")
-	public String logout() {
+	public String logout() throws Exception {
 		logger.info("logout user " + user);
 		user.isLoggedIn = false;
-		user.person = null;
+		user.setPerson(null);
+		user.setUsername("Unknown");
 		return "user";
 	}
 

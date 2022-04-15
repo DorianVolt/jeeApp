@@ -12,7 +12,23 @@ import org.springframework.web.context.annotation.SessionScope;
 public class User{
 
     public boolean isLoggedIn;
-    public Person person;
+    Person person;
+    public String username = "Unknown";
 
 
+    public void setUsername(String username){
+        if (isLoggedIn){
+            this.username = username;
+        }else {
+            this.username = "Unknown";
+        }
+    }
+
+    public String getUsername() {
+       return username;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
 }
