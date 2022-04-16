@@ -3,7 +3,7 @@
 
 <c:url var="login"  value="/web/login" />
 
-<form name="login" action="login" method="POST" >
+<form name="login" action="login">
     <ul>
         <li><label>User:</label> <input type='text' name='email_address' /></li>
         <li><label>Password:</label> <input type='text' name='password' /></li>

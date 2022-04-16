@@ -31,8 +31,8 @@ public class ProjectController {
 	protected final Log logger = LogFactory.getLog(getClass());
 
 	@PostConstruct
-	public void init() {
-
+	public void start() {
+		logger.info("ProjectController is used");
 	}
 
 	@RequestMapping("/list")
@@ -77,7 +77,7 @@ public class ProjectController {
 	}
 
 	@RequestMapping(value = "/logout")
-	public String logout() throws Exception {
+	public String logout(){
 		logger.info("logout user " + user);
 		user.isLoggedIn = false;
 		user.setPerson(null);
